@@ -31,7 +31,7 @@ struct node_t {
 };
 
 /**
- * Return the character at index.
+ * Return character at index.
 **/
 char index(node_t* node, unsigned int i);
 
@@ -46,7 +46,7 @@ node_t* append_tree_left(node_t* node0, node_t* node1);
 node_t* append_tree_right(node_t* node0, node_t* node1);
 
 /**
- * Insert tree at index.
+ * Insert tree inside another tree at index.
 **/
 node_t* insert_tree_at(node_t* node, node_t* to_insert, unsigned int index,  node_t* parent = nullptr);
 
@@ -82,12 +82,12 @@ node_t* subtree(node_t* node, unsigned int i, unsigned int j);
 node_t* split_at(node_t* &node, unsigned int index);
 
 /**
-* insert in the stream the string containing between start and end.
+* Insert in the stream the string delimited by start and end.
 **/
 void stream_section(node_t* node, std::stringstream& stream, int start, int end);
 
 /**
-* Return the string inside the tree between two indices.
+* Return the string string delimited by start and end.
 **/
 std::string to_string(node_t* node, int start, int end);
 
