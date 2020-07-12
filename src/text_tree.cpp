@@ -7,7 +7,7 @@
 
 #include"text_tree.h"
 
-namespace text_tree {
+using namespace text_tree;
 
 void update_weight(node_t* node) {
     if(!node) return;
@@ -139,11 +139,11 @@ node_t* update(node_t* node) {
     return node;
 }
 
-node_t* append_tree_left(node_t* node0, node_t* node1) {
+node_t* text_tree::append_tree_left(node_t* node0, node_t* node1) {
     if(!node0) return node1;
 
     if(node0->left) {
-        append_tree_left(node0->left, node1);
+        text_tree::append_tree_left(node0->left, node1);
     } else {
         node0->left = node1;
         if(node1) node1->parent = node0;
@@ -152,11 +152,11 @@ node_t* append_tree_left(node_t* node0, node_t* node1) {
     return update(node0);
 }
 
-node_t* append_tree_right(node_t* node0, node_t* node1) {
+node_t* text_tree::append_tree_right(node_t* node0, node_t* node1) {
     if(!node0) return node1;
 
     if(node0->right) {
-        append_tree_right(node0->right, node1);
+        text_tree::append_tree_right(node0->right, node1);
     } else {
         node0->right = node1;
         if(node1) node1->parent = node0;
@@ -190,7 +190,7 @@ node_t* _insert_tree_at(node_t* node, node_t* to_insert, unsigned int weight, no
     return update(node);
 }
 
-node_t* insert_tree_at(node_t* node, node_t* to_insert, unsigned int weight,  node_t* parent) {
+node_t* text_tree::insert_tree_at(node_t* node, node_t* to_insert, unsigned int weight,  node_t* parent) {
     return _insert_tree_at(node, to_insert, weight + 1, parent);
 }
 
@@ -224,17 +224,17 @@ node_t* _insert_character_at(node_t* node, char c, unsigned int weight, node_t* 
     return node;
 }
 
-node_t* insert_character_at(node_t* node, char c, unsigned int weight, node_t* parent) {
+node_t* text_tree::insert_character_at(node_t* node, char c, unsigned int weight, node_t* parent) {
     return _insert_character_at(node, c, weight + 1, parent);
 }
 
-node_t* insert_string_at(node_t* node, const char* to_insert, unsigned int weight) {
+node_t* text_tree::insert_characters_at(node_t* node, const char* to_insert, unsigned int weight) {
     node_t* node_to_insert = nullptr;
     for(int i=0; i<strlen(to_insert); i++) {
-        node_to_insert = insert_character_at(node_to_insert, to_insert[i], i);
+        node_to_insert = text_tree::insert_character_at(node_to_insert, to_insert[i], i);
     }
 
-    return insert_tree_at(node, node_to_insert, weight);
+    return text_tree::insert_tree_at(node, node_to_insert, weight);
 }
 
 
@@ -247,7 +247,7 @@ node_t* _remove_character_at(node_t* & node, unsigned int weight) {
 
         if(node->right) {
             root = node->right;
-            root = append_tree_left(root, node->left);
+            root = text_tree::append_tree_left(root, node->left);
             root->parent = node->parent;
         } else if(node->left) {
             root = node->left;
@@ -275,11 +275,11 @@ node_t* _remove_character_at(node_t* & node, unsigned int weight) {
 
 
 
-node_t* remove_character_at(node_t* node, unsigned int weight) {
+node_t* text_tree::remove_character_at(node_t* node, unsigned int weight) {
     return _remove_character_at(node, weight + 1);
 }
 
-node_t* split_at(node_t* &node, unsigned int weight) {
+node_t* text_tree::split_at(node_t* &node, unsigned int weight) {
     if(!node) {
        return nullptr;
     } else if(node->weight + 1 <= weight) {
@@ -311,14 +311,14 @@ node_t* split_at(node_t* &node, unsigned int weight) {
             node = nullptr;
         }
     
-        node_t* tmp = append_tree_right(deleted_node, split_at(node_right, weight - _w - 1));;
+        node_t* tmp = text_tree::append_tree_right(deleted_node, text_tree::split_at(node_right, weight - _w - 1));;
         
         node = node_right;
 
         return tmp;
     }
 
-    node_t* tmp = split_at(node->left, weight);
+    node_t* tmp = text_tree::split_at(node->left, weight);
     node = update(node);
 
     return tmp;
@@ -330,20 +330,20 @@ char _index(node_t* node, unsigned int i) {
     else return _index(node->left, i);
 }
 
-char index(node_t* node, unsigned int i) {
+char text_tree::index(node_t* node, unsigned int i) {
     return _index(node, i + 1);
 }
 
 
-node_t* remove_characters_between(node_t* &node, unsigned int i, unsigned int j) {
+node_t* text_tree::remove_characters_between(node_t* &node, unsigned int i, unsigned int j) {
     node_t* first_part = split_at(node, i);
-    split_at(node, j - i + 1);
-    return append_tree_left(node, first_part);
+    text_tree::split_at(node, j - i + 1);
+    return text_tree::append_tree_left(node, first_part);
 }
 
-node_t* subtree(node_t* node, unsigned int i, unsigned int j) {
-    split_at(node, i);
-    return split_at(node, j - i + 1);
+node_t* text_tree::subtree(node_t* node, unsigned int i, unsigned int j) {
+    text_tree::split_at(node, i);
+    return text_tree::split_at(node, j - i + 1);
 }
 
 void _stream_section(node_t* node, std::stringstream& stream, int start, int end) {
@@ -363,23 +363,21 @@ void _stream_section(node_t* node, std::stringstream& stream, int start, int end
 
 }
 
-void stream_section(node_t* node, std::stringstream& stream, int start, int end) {
+void text_tree::stream_section(node_t* node, std::stringstream& stream, int start, int end) {
     _stream_section(node, stream, start+1, end+1);
 }
 
-size_t lenght(node_t* node) {
+size_t text_tree::lenght(node_t* node) {
     if(!node) return 0;
     
-    return node->weight + 1 + lenght(node->right);
+    return node->weight + 1 + text_tree::lenght(node->right);
 }
 
 
-std::string to_string(node_t* node, int start, int end) {
+std::string text_tree::to_string(node_t* node, int start, int end) {
     std::stringstream stream;
 
-    stream_section(node, stream, start, end);
+    text_tree::stream_section(node, stream, start, end);
 
     return stream.str();
 }
-
-};
