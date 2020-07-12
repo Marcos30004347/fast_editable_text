@@ -3,9 +3,11 @@
 #include <stdlib.h>
 #include <sstream>
 
-#include"tree.h"
+#include "text_tree.h"
 #include"assert.h"
 #include "string.h"
+
+using namespace text_tree;
 
 int main() {
     node_t* root = nullptr;

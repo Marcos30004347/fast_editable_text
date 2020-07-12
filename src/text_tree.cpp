@@ -5,8 +5,9 @@
 #include<string>
 
 
-#include"tree.h"
+#include"text_tree.h"
 
+namespace text_tree {
 
 void update_weight(node_t* node) {
     if(!node) return;
@@ -380,3 +381,5 @@ std::string to_string(node_t* node, int start, int end) {
 
     return stream.str();
 }
+
+};

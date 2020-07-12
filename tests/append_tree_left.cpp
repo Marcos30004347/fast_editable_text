@@ -4,14 +4,10 @@
 
 #include "string.h"
 #include "assert.h"
-#include "tree.h"
+#include "text_tree.h"
 
-void print_characters(node_t* root) {
-    if(!root) return;
-    print_characters(root->left);
-    printf("%c", root->character);
-    print_characters(root->right);
-}
+using namespace text_tree;
+
 
 int main() {
     node_t* root = nullptr;

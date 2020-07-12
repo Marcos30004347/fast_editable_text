@@ -3,6 +3,7 @@
 
 #include<sstream>
 
+namespace text_tree {
 /**
  * Main structure of the tree.
 **/
@@ -95,5 +96,8 @@ std::string to_string(node_t* node, int start, int end);
  * Return the number of characters inside the tree
  **/
 size_t lenght(node_t* node);
+
+};
+
 
 #endif
