@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(node_tree)
+project(text_tree)
 
-add_library(node_t src/tree.cpp)
+add_library(text_tree src/tree.cpp)
 
-target_include_directories(node_t PUBLIC src)
+target_include_directories(text_tree PUBLIC src)
 
 enable_testing()
 
