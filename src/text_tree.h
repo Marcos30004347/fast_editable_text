@@ -59,7 +59,7 @@ node_t* insert_character_at(node_t* node, char c, unsigned int index, node_t* pa
 /**
  * Insert string at index.
 **/
-node_t* insert_string_at(node_t* node, const char* to_insert, unsigned int index);
+node_t* insert_characters_at(node_t* node, const char* to_insert, unsigned int index);
 
 /**
  * Remove character at index.
